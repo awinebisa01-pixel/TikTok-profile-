@@ -2,176 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Get Coins - Recharge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Coins UI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        /* Modal Transitions */
-        #custom-keypad { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); transform: translateY(100%); }
-        #custom-keypad.show { transform: translateY(0%); }
-
-        /* Dual-Dot Processing Animation */
-        @keyframes pulse-red { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.7; } }
-        @keyframes pulse-teal { 0%, 100% { transform: scale(1.4); opacity: 0.7; } 50% { transform: scale(1); opacity: 1; } }
-        .dot-red { animation: pulse-red 0.8s infinite ease-in-out; }
-        .dot-teal { animation: pulse-teal 0.8s infinite ease-in-out; }
-
-        .key-btn:active { background-color: #f3f4f6; }
+        .coin-icon { width: 18px; height: 18px; margin-right: 4px; }
+        .modal-overlay { background: rgba(0,0,0,0.5); display: none; }
     </style>
 </head>
-<body class="bg-[#F8F8F8] no-scrollbar overflow-x-hidden">
+<body class="bg-gray-50 font-sans text-gray-900">
 
-    <div id="main-view" class="max-w-md mx-auto min-h-screen pb-40 relative">
-        <header class="flex items-center justify-between p-4 bg-white sticky top-0 z-20 border-b border-gray-100">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
-            <h1 class="text-[17px] font-bold">Get Coins</h1>
+    <div class="max-w-md mx-auto min-h-screen bg-white shadow-lg flex flex-col">
+        
+        <header class="p-4 flex justify-between items-center border-b">
+            <span class="text-lg font-bold">Get Coins</span>
             <div class="flex gap-4">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+                <span class="text-xl">...</span>
+                <div class="w-8 h-8 bg-gray-200 rounded-full"></div>
             </div>
         </header>
 
-        <main class="p-4 space-y-4">
-            <div class="bg-white rounded-2xl p-4 flex items-center gap-3 border border-gray-100 shadow-sm">
-                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center overflow-hidden">
-                    <svg viewBox="0 0 24 24" class="w-6 h-6 fill-white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.59-.98v7.37c0 1.12-.22 2.21-.66 3.21-.43 1.01-1.07 1.88-1.91 2.52a6.974 6.974 0 0 1-5.11 1.33c-1.04-.13-2.03-.51-2.91-1.11a6.83 6.83 0 0 1-2.28-2.85 7.15 7.15 0 0 1-.36-5.02c.26-1.05.74-2.02 1.43-2.84a6.76 6.76 0 0 1 3.51-2.11c.15-.03.3-.06.45-.08v4.07c-.06.01-.12.02-.19.03-.43.08-.85.24-1.23.47a3.02 3.02 0 0 0-1.08 1.18 3.12 3.12 0 0 0-.05 2.51c.19.46.51.86.91 1.14.4.28.88.44 1.37.47.67.04 1.34-.14 1.9-.52.56-.37.95-.94 1.08-1.59.05-.24.08-.49.08-.74V.02h.01z"/></svg>
-                </div>
-                <input type="text" placeholder="Enter username" class="flex-1 outline-none font-medium">
+        <main class="p-4 flex-grow">
+            <div class="flex items-center mb-6">
+                <img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-png.png" class="w-8 h-8 mr-2" alt="TikTok">
+                <input type="text" placeholder="Enter username" class="w-full bg-gray-100 p-2 rounded-md outline-none">
             </div>
 
-            <div class="space-y-3">
-                <div class="flex flex-col">
-                    <h2 class="text-sm font-bold text-gray-500">Recharge</h2>
-                    <p class="text-[12px] text-[#E64223] font-bold">Save around 25% with a lower third-party service fee. <span class="text-gray-300">ⓘ</span></p>
-                </div>
+            <p class="text-red-500 text-sm font-semibold mb-1">Save around 25% with a lower third-party service fee.</p>
+            <p class="text-gray-400 text-xs mb-4">Recharge</p>
 
-                <div class="grid grid-cols-3 gap-2">
-                    <div onclick="setAmount(0.31, 30)" class="bg-white p-4 rounded-xl border-2 border-[#FE2C55] bg-[#FFF2F2] flex flex-col items-center cursor-pointer">
-                        <span class="font-bold text-lg">30</span>
-                        <span class="text-xs text-gray-400">$0.31</span>
-                    </div>
-                    <div onclick="openKeypad()" class="bg-white p-4 rounded-xl border border-gray-100 flex flex-col items-center justify-center cursor-pointer shadow-sm">
-                        <span class="font-bold text-lg text-gray-700">Custom</span>
-                    </div>
-                </div>
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="selectPackage(30, 0.31)" class="border rounded-lg p-4 flex flex-col items-center hover:border-red-400 active:bg-red-50">
+                    <div class="flex items-center text-sm font-bold">🟡 30</div>
+                    <div class="text-gray-500 text-xs">$0.31</div>
+                </button>
+                <button onclick="selectPackage(350, 3.65)" class="border rounded-lg p-4 flex flex-col items-center hover:border-red-400">
+                    <div class="flex items-center text-sm font-bold">🟡 350</div>
+                    <div class="text-gray-500 text-xs">$3.65</div>
+                </button>
+                <button onclick="selectPackage(700, 7.25)" class="border rounded-lg p-4 flex flex-col items-center hover:border-red-400">
+                    <div class="flex items-center text-sm font-bold">🟡 700</div>
+                    <div class="text-gray-500 text-xs">$7.25</div>
+                </button>
+                <button onclick="openCustom()" class="border rounded-lg p-4 flex flex-col justify-center items-center font-semibold text-gray-700 hover:border-red-400">
+                    Custom
+                </button>
             </div>
         </main>
 
-        <div class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-100 p-4 z-10 shadow-lg">
-            <div class="flex justify-center gap-3 mb-4 grayscale opacity-30">
-                <span class="text-[10px] border px-1 rounded font-bold">VISA</span>
-                <span class="text-[10px] border px-1 rounded font-bold">MASTERCARD</span>
-                <span class="text-[10px] border px-1 rounded font-bold">PAYPAL</span>
+        <footer class="p-4 border-t bg-white">
+            <div class="flex gap-2 justify-center mb-4 opacity-50">
+                <span class="text-xs font-bold italic">VISA</span>
+                <span class="text-xs font-bold italic">MasterCard</span>
             </div>
-            <button onclick="triggerProcess()" class="w-full h-12 bg-[#FE2C55] text-white rounded-md font-extrabold flex items-center justify-center gap-2">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Buy for <span id="footer-price">$0.31</span>
+            <button id="buyBtn" class="w-full bg-red-500 text-white font-bold py-3 rounded-sm">
+                Buy for $0.00
             </button>
+        </footer>
+    </div>
+
+    <div id="customModal" class="modal-overlay fixed inset-0 flex items-center justify-center p-6">
+        <div class="bg-white rounded-xl p-6 w-full max-w-xs shadow-2xl">
+            <h3 class="text-lg font-bold mb-4">Custom Coins</h3>
+            <input id="customInput" type="number" placeholder="Enter amount (min 30)" class="w-full border p-3 rounded-lg mb-4 outline-none focus:border-red-500">
+            <button onclick="processCustom()" class="w-full bg-black text-white py-3 rounded-lg font-bold">Continue</button>
+            <button onclick="closeModal()" class="w-full text-gray-500 mt-2 text-sm">Cancel</button>
         </div>
     </div>
 
-    <div id="keypad-overlay" class="fixed inset-0 bg-black/50 z-[40] hidden opacity-0 transition-opacity" onclick="closeKeypad()"></div>
-    <div id="custom-keypad" class="fixed bottom-0 w-full max-w-md bg-white rounded-t-[24px] z-[50] p-6 space-y-6">
-        <div class="flex items-center justify-between">
-            <button onclick="closeKeypad()" class="text-gray-500 font-bold">Cancel</button>
-            <h3 class="text-xl font-extrabold">Custom</h3>
-            <span class="text-gray-300 font-bold">ⓘ</span>
-        </div>
-
-        <div class="space-y-2">
-            <p class="text-xs font-bold text-gray-400 uppercase">Number of Coins</p>
-            <div class="bg-gray-100 rounded-2xl p-4 flex items-center gap-3 border border-gray-200">
-                <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" class="w-4 h-4 fill-white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.59-.98v7.37c0 1.12-.22 2.21-.66 3.21-.43 1.01-1.07 1.88-1.91 2.52a6.974 6.974 0 0 1-5.11 1.33c-1.04-.13-2.03-.51-2.91-1.11a6.83 6.83 0 0 1-2.28-2.85 7.15 7.15 0 0 1-.36-5.02c.26-1.05.74-2.02 1.43-2.84a6.76 6.76 0 0 1 3.51-2.11c.15-.03.3-.06.45-.08v4.07c-.06.01-.12.02-.19.03-.43.08-.85.24-1.23.47a3.02 3.02 0 0 0-1.08 1.18 3.12 3.12 0 0 0-.05 2.51c.19.46.51.86.91 1.14.4.28.88.44 1.37.47.67.04 1.34-.14 1.9-.52.56-.37.95-.94 1.08-1.59.05-.24.08-.49.08-.74V.02h.01z"/></svg>
-                </div>
-                <input id="keypad-input" type="text" readonly value="0" class="bg-transparent text-2xl font-bold w-full outline-none">
+    <div id="processingModal" class="modal-overlay fixed inset-0 flex items-center justify-center p-6">
+        <div class="bg-white rounded-xl p-8 w-full max-w-xs text-center">
+            <div id="spinner" class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4"></div>
+            <h3 id="processText" class="text-lg font-bold">Processing Payment...</h3>
+            <div id="details" class="hidden text-left mt-4 text-sm bg-gray-50 p-4 rounded">
+                <p><strong>Order ID:</strong> #TK-8829</p>
+                <p><strong>Amount:</strong> <span id="finalAmt"></span> Coins</p>
+                <p class="mt-2 text-green-600 font-bold">Success! Coins added to your account.</p>
+                <button onclick="location.reload()" class="mt-4 w-full bg-red-500 text-white py-2 rounded">Close</button>
             </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-2">
-            <button onclick="pressKey(1)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">1</button>
-            <button onclick="pressKey(2)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">2</button>
-            <button onclick="pressKey(3)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">3</button>
-            <button onclick="pressKey(4)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">4</button>
-            <button onclick="pressKey(5)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">5</button>
-            <button onclick="pressKey(6)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">6</button>
-            <button onclick="pressKey(7)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">7</button>
-            <button onclick="pressKey(8)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">8</button>
-            <button onclick="pressKey(9)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">9</button>
-            <div></div><button onclick="pressKey(0)" class="key-btn h-14 bg-gray-50 rounded-xl text-2xl font-bold">0</button>
-            <button onclick="pressKey('del')" class="key-btn h-14 bg-gray-50 rounded-xl flex items-center justify-center font-bold">←</button>
-        </div>
-
-        <div class="flex justify-between items-center py-2 border-t border-gray-100">
-            <span class="text-gray-400 font-bold">Total</span>
-            <span id="keypad-total" class="text-2xl font-extrabold">$0.00</span>
-        </div>
-        <button onclick="triggerProcess()" class="w-full h-14 bg-[#FE2C55] text-white rounded-md font-extrabold text-lg">Recharge</button>
-    </div>
-
-    <div id="status-overlay" class="fixed inset-0 bg-black/40 z-[100] hidden items-center justify-center p-8 backdrop-blur-sm">
-        <div id="loader-box" class="bg-white w-full max-w-[300px] rounded-[32px] p-10 flex flex-col items-center space-y-8 shadow-2xl">
-            <div class="flex gap-3">
-                <div class="w-4 h-4 bg-[#FE2C55] rounded-full dot-red"></div>
-                <div class="w-4 h-4 bg-[#2AF0EA] rounded-full dot-teal"></div>
-            </div>
-            <div class="text-center">
-                <h3 class="font-bold text-lg text-[#161823]">Processing your payment</h3>
-                <p class="text-xs text-gray-400 mt-2">This could take a few seconds</p>
-            </div>
-            <div class="text-gray-300 font-extrabold tracking-widest">04:59</div>
-        </div>
-
-        <div id="success-box" class="hidden bg-white w-full max-w-[300px] rounded-[32px] p-10 flex flex-col items-center space-y-6 shadow-2xl">
-            <div class="w-16 h-16 bg-[#25C059] rounded-full flex items-center justify-center text-white">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6 9 17l-5-5"/></svg>
-            </div>
-            <h3 class="text-xl font-extrabold text-[#161823]">Payment done</h3>
-            <button onclick="location.reload()" class="w-full h-12 bg-gray-100 rounded-xl font-bold text-gray-600">Done</button>
         </div>
     </div>
 
     <script>
-        let currentInput = "0";
-
-        function openKeypad() {
-            const overlay = document.getElementById('keypad-overlay');
-            overlay.classList.remove('hidden');
-            setTimeout(() => { overlay.classList.add('opacity-100'); document.getElementById('custom-keypad').classList.add('show'); }, 10);
+        function selectPackage(coins, price) {
+            document.getElementById('buyBtn').innerText = `Buy for $${price}`;
         }
 
-        function closeKeypad() {
-            document.getElementById('custom-keypad').classList.remove('show');
-            document.getElementById('keypad-overlay').classList.remove('opacity-100');
-            setTimeout(() => document.getElementById('keypad-overlay').classList.add('hidden'), 300);
+        function openCustom() {
+            document.getElementById('customModal').style.display = 'flex';
         }
 
-        function pressKey(val) {
-            if (val === 'del') {
-                currentInput = currentInput.length > 1 ? currentInput.slice(0, -1) : "0";
-            } else {
-                currentInput = currentInput === "0" ? String(val) : currentInput + val;
+        function closeModal() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+        }
+
+        function processCustom() {
+            const amount = document.getElementById('customInput').value;
+            if (amount < 30) {
+                alert("Minimum 30 coins required.");
+                return;
             }
-            document.getElementById('keypad-input').value = currentInput;
-            let price = (parseInt(currentInput) * 0.0105).toFixed(2);
-            document.getElementById('keypad-total').innerText = '$' + price;
-            document.getElementById('footer-price').innerText = '$' + price;
-        }
-
-        function triggerProcess() {
-            closeKeypad();
-            const overlay = document.getElementById('status-overlay');
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
             
+            closeModal();
+            document.getElementById('processingModal').style.display = 'flex';
+
+            // Simulate Processing
             setTimeout(() => {
-                document.getElementById('loader-box').classList.add('hidden');
-                document.getElementById('success-box').classList.remove('hidden');
-            }, 3000);
+                document.getElementById('spinner').classList.add('hidden');
+                document.getElementById('processText').innerText = "Payment Details";
+                document.getElementById('details').classList.remove('hidden');
+                document.getElementById('finalAmt').innerText = amount;
+            }, 2000);
         }
     </script>
 </body>
