@@ -19,7 +19,7 @@
         .pkg-card { background-color: #ffffff; border: 1.5px solid #F1F1F2; transition: 0.1s; cursor: pointer; }
         .pkg-card:active { border-color: #FE2C55; background-color: #fff1f3; transform: scale(0.97); }
         
-        /* Coin Icons - Replaced with TikTok branding */
+        /* Coin Icons - Replaced placeholder with graphic */
         .coin-icon { width: 18px; height: 18px; margin-right: 2px; }
 
         /* Modern Modal (Bottom Sheet, No Blur) */
@@ -41,7 +41,7 @@
             <div class="flex items-center gap-4">
                 <span class="text-xl font-bold">...</span>
                 <div class="w-9 h-9 rounded-full border-2 border-gray-100 overflow-hidden bg-gray-50">
-                    <img src="https://api.dicebear.com/8.x/avataaars/svg?seed=Felix" alt="user">
+                    <img src="https://api.dicebear.com/8.x/avataaars/svg?seed=Felix" alt="user avatar">
                 </div>
             </div>
         </header>
@@ -88,7 +88,7 @@
 
             <div class="bg-gray-50 rounded-xl p-5 flex justify-between items-center mb-5 cursor-pointer">
                 <div>
-                    <h4 class="font-bold text-[14px]">Invite & Get Rewards</h4>
+                    <h4 class="font-bold text-[14px]">Invite & Get Rewards 🎁</h4>
                     <p class="text-[12px] text-gray-500">Check out this new feature!</p>
                 </div>
                 <span class="text-gray-300">❯</span>
@@ -100,7 +100,7 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3.5">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-4.5">
             </div>
-            <button onclick="recharge('preset', 'preset')" id="buyBtn" class="tt-red w-full text-white text-[16px] font-bold py-3.5 rounded-xl active:scale-[0.98] transition-all">
+            <button onclick="openStatus()" id="buyBtn" class="tt-red w-full text-white text-[16px] font-bold py-3.5 rounded-xl active:scale-[0.98] transition-all">
                 Buy for $0.00
             </button>
         </footer>
@@ -109,7 +109,7 @@
     <div id="customModal" class="modal-overlay" onclick="closeModal()">
         <div class="bottom-sheet" onclick="event.stopPropagation()">
             <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-8"></div>
-            <h3 class="text-center font-bold text-lg mb-6">Custom Amount</h3>
+            <h3 class="text-center font-bold text-lg mb-6">Custom Amount ✏️</h3>
             <div class="relative mb-6">
                 <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="absolute left-4 top-4.5 w-6 h-6">
                 <input id="customInput" type="number" placeholder="Enter amount (min 30)" class="w-full bg-[#f1f1f2] p-5 pl-14 rounded-xl outline-none text-[17px] font-extrabold border-2 border-transparent focus:border-[#FE2C55]">
@@ -122,10 +122,10 @@
         <div class="bg-white rounded-2xl w-full max-w-xs p-8 text-center shadow-2xl">
             <div id="loader" class="py-10">
                 <div class="animate-spin h-10 w-10 border-4 border-[#FE2C55] border-t-transparent rounded-full mx-auto"></div>
-                <p class="mt-4 font-medium text-gray-500">Processing Payment...</p>
+                <p class="mt-4 font-medium text-gray-500">Processing Payment... ⏳</p>
             </div>
             <div id="paymentDetails" class="hidden text-left space-y-3 pt-4 border-t border-gray-100">
-                <div class="flex justify-between"><span class="text-gray-500">Status</span><span class="font-bold text-green-600">Successful</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Status</span><span class="font-bold text-green-600">Successful ✅</span></div>
                 <div class="flex justify-between"><span class="text-gray-500">Order ID</span><span class="font-mono text-sm">#TT-88201</span></div>
                 <div class="flex justify-between"><span class="text-gray-500">Total Coins</span><span id="finalCoins" class="font-extrabold text-[#FE2C55]">0</span></div>
                 <button onclick="location.reload()" class="w-full bg-black text-white py-3.5 mt-5 rounded-xl font-bold">Done</button>
@@ -138,16 +138,10 @@
         function closeModal() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
 
         function recharge(amt, price, el) {
-            if(amt !== 'preset') {
-                document.querySelectorAll('.pkg-card').forEach(c => c.style.borderColor = '#F1F1F2');
-                el.style.borderColor = '#FE2C55';
-                document.getElementById('buyBtn').innerText = `Buy for $${price}`;
-                // Set preset amount as a fallback for the buy button
-                document.getElementById('finalCoins').innerText = amt;
-            } else {
-                // Main buy button clicked
-                openStatus();
-            }
+            document.querySelectorAll('.pkg-card').forEach(c => c.style.borderColor = '#F1F1F2');
+            el.style.borderColor = '#FE2C55';
+            document.getElementById('buyBtn').innerText = `Buy for $${price}`;
+            document.getElementById('finalCoins').innerText = amt;
         }
 
         function processCustom() {
