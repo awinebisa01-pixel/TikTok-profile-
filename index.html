@@ -7,181 +7,166 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F8F8F8; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; }
         .tt-red { background-color: #FE2C55; }
-        .pkg-card { background: #f1f1f266; border: 1.5px solid transparent; transition: 0.1s; cursor: pointer; }
-        .pkg-card.active { border-color: #FE2C55; background: #fff1f3; }
-        .numpad-btn { background: #FFFFFF; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-        .numpad-btn:active { background: #E5E7EB; }
-        .screen { display: none; min-height: 100vh; width: 100%; position: absolute; top: 0; left: 0; background: #F8F8F8; }
-        .active-screen { display: flex; flex-direction: column; }
+        .tt-red-text { color: #FE2C55; }
+        
+        /* Modern Input Styling */
+        .tt-input-container { background-color: #F1F1F2; transition: 0.1s; border: 1.5px solid transparent; }
+        .tt-input-container:focus-within { background-color: #ffffff; border-color: #c9cbcd; }
+
+        /* Package Card Styling */
+        .pkg-card { background-color: #ffffff; border: 1.5px solid #F1F1F2; transition: 0.1s; cursor: pointer; }
+        .pkg-card:active { border-color: #FE2C55; background-color: #fff1f3; transform: scale(0.97); }
+        
+        /* Coin Icons - Replaced with TikTok branding */
+        .coin-icon { width: 18px; height: 18px; margin-right: 2px; }
+
+        /* Modern Modal (Bottom Sheet, No Blur) */
+        .modal-overlay { background: rgba(0,0,0,0.6); display: none; position: fixed; inset: 0; z-index: 50; align-items: flex-end; }
+        .bottom-sheet { background: white; width: 100%; border-radius: 16px 16px 0 0; padding: 24px; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body class="flex justify-center">
 
-    <div id="mainScreen" class="screen active-screen bg-white">
-        <header class="p-4 flex items-center justify-between border-b bg-white sticky top-0">
+    <div class="w-full max-w-md min-h-screen flex flex-col relative pb-32">
+        <header class="p-4 flex items-center justify-between border-b border-gray-100 bg-white sticky top-0 z-10">
             <div class="flex items-center">
-                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M31 36L19 24L31 12" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <h1 class="ml-4 text-[17px] font-bold">Get Coins</h1>
+                <button class="mr-3">
+                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M31 36L19 24L31 12" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <h1 class="text-[17px] font-bold">Get Coins</h1>
             </div>
-            <div class="flex gap-4">
-                <span class="text-xl">...</span>
-                <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+            <div class="flex items-center gap-4">
+                <span class="text-xl font-bold">...</span>
+                <div class="w-9 h-9 rounded-full border-2 border-gray-100 overflow-hidden bg-gray-50">
+                    <img src="https://api.dicebear.com/8.x/avataaars/svg?seed=Felix" alt="user">
+                </div>
             </div>
         </header>
 
-        <div class="p-4">
-            <div class="flex items-center bg-[#F1F1F2] rounded-md px-3 py-2 mb-4">
+        <div class="p-5 flex-grow">
+            <div class="tt-input-container flex items-center rounded-xl px-4 py-2.5 mb-5">
                 <img src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/logo-dark-e95da58a793c313f5d909927cf4c7c3b.svg" class="w-5 h-5 mr-3">
-                <input type="text" placeholder="Enter username" class="bg-transparent w-full outline-none text-[15px]">
+                <input type="text" placeholder="Enter username" class="bg-transparent w-full outline-none text-[15px] font-medium placeholder:text-gray-400">
             </div>
 
-            <p class="text-gray-400 text-[12px] font-bold uppercase mb-4">Recharge</p>
-            <p class="text-[#FE2C55] text-[13px] font-medium mb-4 leading-tight">Save around 25% with a lower third-party service fee. <span class="text-gray-300">ⓘ</span></p>
-
-            <div class="grid grid-cols-3 gap-3 mb-6">
-                <div onclick="selectPkg(30, 0.31, this)" class="pkg-card rounded-xl p-4 flex flex-col items-center">
-                    <div class="flex items-center gap-1"><img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="w-4 h-4"><span class="font-bold">30</span></div>
-                    <div class="text-gray-500 text-xs mt-1">$0.31</div>
-                </div>
-                <div onclick="selectPkg(350, 3.65, this)" class="pkg-card rounded-xl p-4 flex flex-col items-center">
-                    <div class="flex items-center gap-1"><img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="w-4 h-4"><span class="font-bold">350</span></div>
-                    <div class="text-gray-500 text-xs mt-1">$3.65</div>
-                </div>
-                <div onclick="selectPkg(700, 7.25, this)" class="pkg-card rounded-xl p-4 flex flex-col items-center">
-                    <div class="flex items-center gap-1"><img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="w-4 h-4"><span class="font-bold">700</span></div>
-                    <div class="text-gray-500 text-xs mt-1">$7.25</div>
-                </div>
-                <div onclick="goToCustom()" class="pkg-card rounded-xl p-4 flex items-center justify-center font-bold text-gray-700">Custom</div>
+            <div class="mb-5 p-1">
+                <p class="tt-red-text text-[13px] font-semibold flex items-center gap-1.5 leading-tight">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    Save around 25% with a lower third-party service fee.
+                </p>
             </div>
 
-            <div class="bg-gray-50 rounded-lg p-4 flex justify-between items-center mb-4">
+            <p class="text-gray-400 text-[12px] font-bold uppercase mb-4 tracking-wider">Recharge</p>
+
+            <div class="grid grid-cols-3 gap-3.5 mb-8">
+                <div onclick="recharge(30, 0.31, this)" class="pkg-card rounded-xl p-4 flex flex-col items-center">
+                    <div class="flex items-center gap-1.5 mb-1">
+                        <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="coin-icon">
+                        <span class="text-[16px] font-bold">30</span>
+                    </div>
+                    <div class="text-gray-500 text-[12px] font-medium">$0.31</div>
+                </div>
+                <div onclick="recharge(350, 3.65, this)" class="pkg-card rounded-xl p-4 flex flex-col items-center">
+                    <div class="flex items-center gap-1.5 mb-1">
+                        <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="coin-icon">
+                        <span class="text-[16px] font-bold">350</span>
+                    </div>
+                    <div class="text-gray-500 text-[12px] font-medium">$3.65</div>
+                </div>
+                <div onclick="recharge(700, 7.25, this)" class="pkg-card rounded-xl p-4 flex flex-col items-center">
+                    <div class="flex items-center gap-1.5 mb-1">
+                        <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="coin-icon">
+                        <span class="text-[16px] font-bold">700</span>
+                    </div>
+                    <div class="text-gray-500 text-[12px] font-medium">$7.25</div>
+                </div>
+                <div onclick="openCustom()" class="pkg-card rounded-xl p-4 flex items-center justify-center text-gray-700 font-bold">Custom</div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-5 flex justify-between items-center mb-5 cursor-pointer">
                 <div>
-                    <h4 class="font-bold text-sm">Invite & Get Rewards</h4>
-                    <p class="text-xs text-gray-500">Check out this new feature!</p>
+                    <h4 class="font-bold text-[14px]">Invite & Get Rewards</h4>
+                    <p class="text-[12px] text-gray-500">Check out this new feature!</p>
                 </div>
                 <span class="text-gray-300">❯</span>
             </div>
         </div>
 
-        <footer class="mt-auto p-4 border-t sticky bottom-0 bg-white">
+        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-100 p-5 pb-9 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] z-10">
             <div class="flex justify-center gap-4 mb-4 grayscale opacity-40">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3.5">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-4.5">
             </div>
-            <button onclick="processPayment()" id="buyBtn" class="tt-red w-full text-white font-bold py-3.5 rounded-sm">
+            <button onclick="recharge('preset', 'preset')" id="buyBtn" class="tt-red w-full text-white text-[16px] font-bold py-3.5 rounded-xl active:scale-[0.98] transition-all">
                 Buy for $0.00
             </button>
         </footer>
     </div>
 
-    <div id="customScreen" class="screen">
-        <header class="p-4 flex items-center bg-white border-b">
-            <button onclick="goBack()"><svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M31 36L19 24L31 12" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <h1 class="flex-grow text-center font-bold mr-6">Custom</h1>
-            <span class="text-gray-400">?</span>
-        </header>
-
-        <div class="p-6 bg-white flex-grow">
-            <p class="text-[13px] font-semibold text-gray-500 mb-2">Number of Coins ▾</p>
-            <div class="flex items-center border border-gray-200 rounded-lg p-4 gap-3 bg-[#FBFBFB]">
-                <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="w-6 h-6">
-                <span id="customDisplay" class="text-2xl font-extrabold">0</span>
-                <span class="animate-pulse w-[2px] h-6 bg-[#FE2C55]"></span>
+    <div id="customModal" class="modal-overlay" onclick="closeModal()">
+        <div class="bottom-sheet" onclick="event.stopPropagation()">
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-8"></div>
+            <h3 class="text-center font-bold text-lg mb-6">Custom Amount</h3>
+            <div class="relative mb-6">
+                <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="absolute left-4 top-4.5 w-6 h-6">
+                <input id="customInput" type="number" placeholder="Enter amount (min 30)" class="w-full bg-[#f1f1f2] p-5 pl-14 rounded-xl outline-none text-[17px] font-extrabold border-2 border-transparent focus:border-[#FE2C55]">
             </div>
-            <div class="flex justify-between mt-8 text-sm text-gray-400">
-                <span>Total</span>
-                <span class="text-black font-bold" id="customTotal">$0.00</span>
-            </div>
-        </div>
-
-        <div class="bg-[#F1F1F2] p-2 grid grid-cols-3 gap-2">
-            <div onclick="addNum('1')" class="numpad-btn">1</div>
-            <div onclick="addNum('2')" class="numpad-btn">2</div>
-            <div onclick="addNum('3')" class="numpad-btn">3</div>
-            <div onclick="addNum('4')" class="numpad-btn">4</div>
-            <div onclick="addNum('5')" class="numpad-btn">5</div>
-            <div onclick="addNum('6')" class="numpad-btn">6</div>
-            <div onclick="addNum('7')" class="numpad-btn">7</div>
-            <div onclick="addNum('8')" class="numpad-btn">8</div>
-            <div onclick="addNum('9')" class="numpad-btn">9</div>
-            <div class="bg-transparent h-[60px]"></div>
-            <div onclick="addNum('0')" class="numpad-btn">0</div>
-            <div onclick="delNum()" class="numpad-btn">⌫</div>
-        </div>
-        
-        <div class="p-4 bg-[#F1F1F2] pb-8">
-            <button onclick="processPayment()" class="tt-red w-full text-white font-bold py-4 rounded-sm flex items-center justify-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-                Recharge
-            </button>
+            <button onclick="processCustom()" class="w-full tt-red text-white py-4 rounded-xl font-bold text-lg active:scale-[0.98]">Continue</button>
         </div>
     </div>
 
-    <div id="payScreen" class="screen bg-white items-center justify-center p-8 text-center">
-        <div id="loader" class="animate-spin rounded-full h-12 w-12 border-4 border-[#FE2C55] border-t-transparent mx-auto"></div>
-        <div id="successContent" class="hidden">
-            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <div id="processingModal" class="modal-overlay justify-center items-center p-6">
+        <div class="bg-white rounded-2xl w-full max-w-xs p-8 text-center shadow-2xl">
+            <div id="loader" class="py-10">
+                <div class="animate-spin h-10 w-10 border-4 border-[#FE2C55] border-t-transparent rounded-full mx-auto"></div>
+                <p class="mt-4 font-medium text-gray-500">Processing Payment...</p>
             </div>
-            <h2 class="text-2xl font-extrabold mb-2">Payment Details</h2>
-            <div class="bg-gray-50 rounded-xl p-6 text-left space-y-3 mb-8 w-full max-w-sm">
-                <div class="flex justify-between"><span class="text-gray-400">Coins</span><span id="finalCoins" class="font-bold">0</span></div>
-                <div class="flex justify-between"><span class="text-gray-400">Order ID</span><span class="font-mono">#TT-772910</span></div>
-                <div class="flex justify-between"><span class="text-gray-400">Status</span><span class="text-green-600 font-bold">Completed</span></div>
+            <div id="paymentDetails" class="hidden text-left space-y-3 pt-4 border-t border-gray-100">
+                <div class="flex justify-between"><span class="text-gray-500">Status</span><span class="font-bold text-green-600">Successful</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Order ID</span><span class="font-mono text-sm">#TT-88201</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Total Coins</span><span id="finalCoins" class="font-extrabold text-[#FE2C55]">0</span></div>
+                <button onclick="location.reload()" class="w-full bg-black text-white py-3.5 mt-5 rounded-xl font-bold">Done</button>
             </div>
-            <button onclick="location.reload()" class="w-full bg-black text-white py-4 rounded-lg font-bold">Done</button>
         </div>
     </div>
 
     <script>
-        let currentCustom = "";
-        const coinPrice = 0.0106; // Estimated per coin price
+        function openCustom() { document.getElementById('customModal').style.display = 'flex'; }
+        function closeModal() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
 
-        function selectPkg(amt, price, el) {
-            document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            document.getElementById('buyBtn').innerText = `Buy for $${price}`;
-            document.getElementById('finalCoins').innerText = amt;
-        }
-
-        function goToCustom() {
-            document.getElementById('mainScreen').classList.remove('active-screen');
-            document.getElementById('customScreen').classList.add('active-screen');
-        }
-
-        function goBack() {
-            document.getElementById('customScreen').classList.remove('active-screen');
-            document.getElementById('mainScreen').classList.add('active-screen');
-        }
-
-        function addNum(n) {
-            if (currentCustom.length < 7) {
-                currentCustom += n;
-                updateCustomUI();
+        function recharge(amt, price, el) {
+            if(amt !== 'preset') {
+                document.querySelectorAll('.pkg-card').forEach(c => c.style.borderColor = '#F1F1F2');
+                el.style.borderColor = '#FE2C55';
+                document.getElementById('buyBtn').innerText = `Buy for $${price}`;
+                // Set preset amount as a fallback for the buy button
+                document.getElementById('finalCoins').innerText = amt;
+            } else {
+                // Main buy button clicked
+                openStatus();
             }
         }
 
-        function delNum() {
-            currentCustom = currentCustom.slice(0, -1);
-            updateCustomUI();
+        function processCustom() {
+            const amt = document.getElementById('customInput').value;
+            if(amt < 30) return alert("Minimum 30 coins required.");
+            
+            closeModal();
+            openStatus();
+            document.getElementById('finalCoins').innerText = amt;
         }
 
-        function updateCustomUI() {
-            const val = currentCustom === "" ? "0" : currentCustom;
-            document.getElementById('customDisplay').innerText = parseInt(val).toLocaleString();
-            document.getElementById('customTotal').innerText = "$" + (parseInt(val) * coinPrice).toFixed(2);
-            document.getElementById('finalCoins').innerText = val;
-        }
-
-        function processPayment() {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
-            document.getElementById('payScreen').classList.add('active-screen');
+        function openStatus() {
+            document.getElementById('processingModal').style.display = 'flex';
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('paymentDetails').classList.add('hidden');
             
             setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-                document.getElementById('successContent').classList.remove('hidden');
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('paymentDetails').classList.remove('hidden');
             }, 2500);
         }
     </script>
