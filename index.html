@@ -3,93 +3,84 @@
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Rewards Dashboard</title>
+    <title>Live Rewards Send</title>
+    <style>
+        .hidden { display: none; }
+    </style>
 </head>
-<body class="bg-gray-100 flex justify-center py-10">
+<body class="bg-gray-100 flex justify-center py-10 font-sans">
 
     <div class="w-[375px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-[8px] border-black h-[812px] relative flex flex-col">
         
         <div class="px-6 pt-10 pb-4 border-b border-gray-100">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-xl font-bold text-gray-900">LIVE rewards</h1>
-                <span class="text-gray-400 text-sm">History</span>
+                <span class="text-gray-400 text-xs font-bold uppercase">History</span>
             </div>
 
             <div class="mb-2">
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Quick Send</p>
-                <div class="flex gap-4 overflow-x-auto pb-2">
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400">+</div>
-                        <span class="text-[10px] mt-1 font-medium">New</span>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Send to Users</p>
+                <div class="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+                    <div onclick="openModal('mksingh794')" class="flex flex-col items-center shrink-0 cursor-pointer active:scale-95 transition-transform">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 to-orange-500 flex items-center justify-center font-bold text-white shadow-sm border-2 border-white">MK</div>
+                        <span class="text-[9px] mt-1 font-bold text-gray-600">mksingh794</span>
                     </div>
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600 border-2 border-white shadow-sm">MK</div>
-                        <span class="text-[10px] mt-1 font-bold">mksingh794</span>
-                    </div>
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center font-bold text-pink-600 border-2 border-white shadow-sm">LR</div>
-                        <span class="text-[10px] mt-1 font-bold">lorayne4_</span>
-                    </div>
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-600 border-2 border-white shadow-sm">RT</div>
-                        <span class="text-[10px] mt-1 font-bold">relayman</span>
+                    <div onclick="openModal('lorayne4_')" class="flex flex-col items-center shrink-0 cursor-pointer active:scale-95 transition-transform">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#fe2c55] to-red-400 flex items-center justify-center font-bold text-white shadow-sm border-2 border-white">LR</div>
+                        <span class="text-[9px] mt-1 font-bold text-gray-600">lorayne4_</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="p-6 flex-1 overflow-y-auto space-y-4">
-            
+        <div class="p-6 flex-1 space-y-4">
             <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm text-center">
                 <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Available rewards</p>
                 <h2 class="text-3xl font-black text-gray-900 mb-6">31,399,000.00</h2>
-                
-                <div class="space-y-3">
-                    <button class="w-full bg-[#fe2c55] text-white py-4 rounded-full font-bold text-lg active:opacity-80">Transfer</button>
-                    <button class="w-full bg-gray-100 text-gray-800 py-4 rounded-full font-bold text-lg">Exchange</button>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
-                <div class="flex justify-between items-center pb-4 border-b">
-                    <div>
-                        <p class="text-[9px] text-gray-400 font-bold">Daily transfer limit</p>
-                        <p class="text-sm font-bold text-gray-800">588,000 / 10M</p>
-                    </div>
-                    <div class="h-1.5 w-16 bg-gray-100 rounded-full">
-                        <div class="h-full bg-[#fe2c55] w-1/4"></div>
-                    </div>
-                </div>
-                <div class="flex justify-between pt-4">
-                    <div class="text-left">
-                        <p class="text-[9px] text-gray-400 font-bold uppercase">In</p>
-                        <p class="text-xs font-bold text-green-600">+ USD 31,399,000</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[9px] text-gray-400 font-bold uppercase">Out</p>
-                        <p class="text-xs font-bold text-gray-800">USD 25,000</p>
-                    </div>
-                </div>
+                <button onclick="openModal('General Transfer')" class="w-full bg-[#fe2c55] text-white py-4 rounded-full font-bold text-lg shadow-lg shadow-red-100 active:scale-95 transition-all">Transfer</button>
             </div>
 
             <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex gap-3">
                 <div class="w-5 h-5 bg-blue-500 rounded-md flex items-center justify-center text-white text-[10px]">✓</div>
-                <div>
-                    <p class="text-[11px] font-bold text-blue-900">Identity verified</p>
-                    <p class="text-[10px] text-blue-700 mt-0.5 leading-tight">Your identity is verified. You can continue with transactions.</p>
-                </div>
+                <p class="text-[10px] text-blue-700 font-medium">Identity verified. High-volume transactions enabled.</p>
             </div>
-
         </div>
 
-        <div class="bg-black py-4 px-6 flex justify-between items-center text-white text-[10px] font-bold">
-            <div class="flex flex-col items-center opacity-100"><span>Home</span></div>
-            <div class="flex flex-col items-center opacity-50"><span>Friends</span></div>
-            <div class="w-10 h-8 bg-white rounded-lg flex items-center justify-center text-black font-black">+</div>
-            <div class="flex flex-col items-center opacity-50"><span>Inbox</span></div>
-            <div class="flex flex-col items-center opacity-50"><span>Profile</span></div>
+        <div id="sendModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+            
+            <div class="relative bg-white w-full max-w-[300px] rounded-[32px] p-8 text-center shadow-2xl transform transition-all scale-100">
+                <div class="flex justify-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <span class="text-green-600 font-bold text-xl">✓</span>
+                    </div>
+                </div>
+                <h3 class="text-lg font-black text-gray-900">Success!</h3>
+                <p id="modalMessage" class="text-sm text-gray-500 mt-2">Sending coins to user...</p>
+                
+                <button onclick="closeModal()" class="mt-8 w-full py-3 bg-gray-900 text-white rounded-full font-bold text-sm active:scale-95">Done</button>
+            </div>
         </div>
 
+        <div class="bg-black py-4 px-6 flex justify-between items-center text-white text-[10px] font-bold mt-auto">
+            <span>Home</span>
+            <div class="w-10 h-7 bg-white rounded-md flex items-center justify-center text-black font-black">+</div>
+            <span>Profile</span>
+        </div>
     </div>
+
+    <script>
+        const modal = document.getElementById('sendModal');
+        const message = document.getElementById('modalMessage');
+
+        function openModal(userName) {
+            message.innerText = "Transaction to " + userName + " was successful.";
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+    </script>
 </body>
 </html>
