@@ -3,116 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Coins UI</title>
+    <title>TikTok - Get Coins</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .coin-icon { width: 18px; height: 18px; margin-right: 4px; }
-        .modal-overlay { background: rgba(0,0,0,0.5); display: none; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f8f8; }
+        .tt-red { background-color: #FE2C55; }
+        .tt-red-text { color: #FE2C55; }
+        .coin-card { transition: all 0.2s ease; border: 1px solid #e5e7eb; }
+        .coin-card:active { transform: scale(0.95); border-color: #FE2C55; background-color: #fff1f3; }
+        .modal-blur { backdrop-filter: blur(8px); background: rgba(0,0,0,0.4); display: none; }
+        .coin-icon { width: 20px; height: 20px; }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body class="flex justify-center">
 
-    <div class="max-w-md mx-auto min-h-screen bg-white shadow-lg flex flex-col">
-        
-        <header class="p-4 flex justify-between items-center border-b">
-            <span class="text-lg font-bold">Get Coins</span>
-            <div class="flex gap-4">
-                <span class="text-xl">...</span>
-                <div class="w-8 h-8 bg-gray-200 rounded-full"></div>
+    <div class="w-full max-w-md bg-white min-h-screen shadow-xl relative pb-32">
+        <header class="sticky top-0 bg-white z-10 px-4 py-3 flex justify-between items-center border-b border-gray-100">
+            <h1 class="text-[18px] font-bold">Get Coins</h1>
+            <div class="flex items-center gap-4">
+                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M12 24C12 21.7909 13.7909 20 16 20C18.2091 20 20 21.7909 20 24C20 26.2091 18.2091 28 16 28C13.7909 28 12 26.2091 12 24Z" fill="currentColor"/><path d="M24 24C24 21.7909 25.7909 20 28 20C30.2091 20 32 21.7909 32 24C32 26.2091 30.2091 28 28 28C25.7909 28 24 26.2091 24 24Z" fill="currentColor"/><path d="M36 24C36 21.7909 37.7909 20 40 20C42.2091 20 44 21.7909 44 24C44 26.2091 42.2091 28 40 28C37.7909 28 36 26.2091 36 24Z" fill="currentColor"/></svg>
+                <div class="w-8 h-8 rounded-full bg-gray-200 border border-gray-100 overflow-hidden">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="avatar">
+                </div>
             </div>
         </header>
 
-        <main class="p-4 flex-grow">
-            <div class="flex items-center mb-6">
-                <img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-png.png" class="w-8 h-8 mr-2" alt="TikTok">
-                <input type="text" placeholder="Enter username" class="w-full bg-gray-100 p-2 rounded-md outline-none">
+        <div class="p-4">
+            <div class="relative flex items-center bg-[#f1f1f2] rounded-lg px-3 py-2 border border-transparent focus-within:border-gray-300">
+                <img src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/logo-dark-e95da58a793c313f5d909927cf4c7c3b.svg" class="w-5 h-5 mr-2">
+                <input type="text" placeholder="Enter username" class="bg-transparent w-full outline-none text-[15px] font-medium">
             </div>
+        </div>
 
-            <p class="text-red-500 text-sm font-semibold mb-1">Save around 25% with a lower third-party service fee.</p>
-            <p class="text-gray-400 text-xs mb-4">Recharge</p>
+        <div class="px-4 mb-4">
+            <p class="tt-red-text text-[13px] font-semibold flex items-center gap-1">
+                Save around 25% with a lower third-party service fee.
+                <span class="text-gray-400">ⓘ</span>
+            </p>
+        </div>
 
-            <div class="grid grid-cols-3 gap-3">
-                <button onclick="selectPackage(30, 0.31)" class="border rounded-lg p-4 flex flex-col items-center hover:border-red-400 active:bg-red-50">
-                    <div class="flex items-center text-sm font-bold">🟡 30</div>
-                    <div class="text-gray-500 text-xs">$0.31</div>
-                </button>
-                <button onclick="selectPackage(350, 3.65)" class="border rounded-lg p-4 flex flex-col items-center hover:border-red-400">
-                    <div class="flex items-center text-sm font-bold">🟡 350</div>
-                    <div class="text-gray-500 text-xs">$3.65</div>
-                </button>
-                <button onclick="selectPackage(700, 7.25)" class="border rounded-lg p-4 flex flex-col items-center hover:border-red-400">
-                    <div class="flex items-center text-sm font-bold">🟡 700</div>
-                    <div class="text-gray-500 text-xs">$7.25</div>
-                </button>
-                <button onclick="openCustom()" class="border rounded-lg p-4 flex flex-col justify-center items-center font-semibold text-gray-700 hover:border-red-400">
-                    Custom
-                </button>
+        <div class="px-4 mb-2">
+            <h2 class="text-gray-500 text-[12px] font-bold uppercase tracking-wider">Recharge</h2>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 px-4">
+            <div onclick="selectPkg(30, 0.31, this)" class="coin-card rounded-lg p-4 flex flex-col items-center cursor-pointer">
+                <div class="flex items-center gap-1 mb-1">
+                    <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="coin-icon">
+                    <span class="text-[17px] font-extrabold">30</span>
+                </div>
+                <div class="text-gray-500 text-[13px] font-medium">$0.31</div>
             </div>
-        </main>
-
-        <footer class="p-4 border-t bg-white">
-            <div class="flex gap-2 justify-center mb-4 opacity-50">
-                <span class="text-xs font-bold italic">VISA</span>
-                <span class="text-xs font-bold italic">MasterCard</span>
+            <div onclick="selectPkg(350, 3.65, this)" class="coin-card rounded-lg p-4 flex flex-col items-center cursor-pointer">
+                <div class="flex items-center gap-1 mb-1">
+                    <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="coin-icon">
+                    <span class="text-[17px] font-extrabold">350</span>
+                </div>
+                <div class="text-gray-500 text-[13px] font-medium">$3.65</div>
             </div>
-            <button id="buyBtn" class="w-full bg-red-500 text-white font-bold py-3 rounded-sm">
+            <div onclick="selectPkg(700, 7.25, this)" class="coin-card rounded-lg p-4 flex flex-col items-center cursor-pointer">
+                <div class="flex items-center gap-1 mb-1">
+                    <img src="https://p16-va.lemon8cdn.com/tos-alisg-i-9378129883/6f7f6f8f7f6f4f8f9f8f4f8f7f6f4f8f~tplv-tej9nj120t-origin.webp" class="coin-icon">
+                    <span class="text-[17px] font-extrabold">700</span>
+                </div>
+                <div class="text-gray-500 text-[13px] font-medium">$7.25</div>
+            </div>
+            <div onclick="openModal('customModal')" class="coin-card rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer">
+                <span class="text-[15px] font-bold text-gray-700">Custom</span>
+            </div>
+        </div>
+
+        <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-100 p-4 pb-8 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+            <div class="flex justify-center gap-3 mb-4 opacity-40 grayscale">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-4">
+            </div>
+            <button id="buyButton" class="tt-red w-full text-white text-[16px] font-bold py-3.5 rounded-sm active:opacity-90">
                 Buy for $0.00
             </button>
-        </footer>
-    </div>
-
-    <div id="customModal" class="modal-overlay fixed inset-0 flex items-center justify-center p-6">
-        <div class="bg-white rounded-xl p-6 w-full max-w-xs shadow-2xl">
-            <h3 class="text-lg font-bold mb-4">Custom Coins</h3>
-            <input id="customInput" type="number" placeholder="Enter amount (min 30)" class="w-full border p-3 rounded-lg mb-4 outline-none focus:border-red-500">
-            <button onclick="processCustom()" class="w-full bg-black text-white py-3 rounded-lg font-bold">Continue</button>
-            <button onclick="closeModal()" class="w-full text-gray-500 mt-2 text-sm">Cancel</button>
         </div>
     </div>
 
-    <div id="processingModal" class="modal-overlay fixed inset-0 flex items-center justify-center p-6">
-        <div class="bg-white rounded-xl p-8 w-full max-w-xs text-center">
-            <div id="spinner" class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4"></div>
-            <h3 id="processText" class="text-lg font-bold">Processing Payment...</h3>
-            <div id="details" class="hidden text-left mt-4 text-sm bg-gray-50 p-4 rounded">
-                <p><strong>Order ID:</strong> #TK-8829</p>
-                <p><strong>Amount:</strong> <span id="finalAmt"></span> Coins</p>
-                <p class="mt-2 text-green-600 font-bold">Success! Coins added to your account.</p>
-                <button onclick="location.reload()" class="mt-4 w-full bg-red-500 text-white py-2 rounded">Close</button>
+    <div id="customModal" class="modal-blur fixed inset-0 z-50 flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl w-full max-w-xs overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+            <div class="p-6">
+                <h3 class="text-center font-bold text-lg mb-4">Custom amount</h3>
+                <div class="relative">
+                    <input id="customVal" type="number" placeholder="Enter amount of coins" class="w-full bg-[#f1f1f2] p-4 rounded-lg outline-none text-[16px] font-semibold border-2 border-transparent focus:border-[#FE2C55]">
+                </div>
+                <p class="text-[12px] text-gray-500 mt-2 text-center">Minimum 30 coins</p>
+            </div>
+            <div class="flex border-t">
+                <button onclick="closeModal('customModal')" class="flex-1 py-4 font-bold border-r hover:bg-gray-50">Cancel</button>
+                <button onclick="handlePurchase()" class="flex-1 py-4 font-bold tt-red-text hover:bg-gray-50">Buy now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="processModal" class="modal-blur fixed inset-0 z-[60] flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl w-full max-w-xs p-8 text-center shadow-2xl">
+            <div id="loader" class="mb-4">
+                <svg class="animate-spin h-10 w-10 text-[#FE2C55] mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </div>
+            <h3 id="modalTitle" class="font-bold text-lg">Processing...</h3>
+            <div id="payDetails" class="hidden mt-4 text-left border-t pt-4 space-y-2">
+                <div class="flex justify-between"><span class="text-gray-500">Transaction ID</span><span class="font-mono text-sm">#TK-99210</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Total Coins</span><span class="font-bold text-[#FE2C55]" id="finalCoins">0</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Status</span><span class="text-green-600 font-bold">Paid</span></div>
+                <button onclick="window.location.reload()" class="w-full tt-red text-white py-3 mt-4 rounded-lg font-bold">Done</button>
             </div>
         </div>
     </div>
 
     <script>
-        function selectPackage(coins, price) {
-            document.getElementById('buyBtn').innerText = `Buy for $${price}`;
+        function selectPkg(coins, price, el) {
+            // Remove active states
+            document.querySelectorAll('.coin-card').forEach(c => c.style.borderColor = '#e5e7eb');
+            // Add active state
+            el.style.borderColor = '#FE2C55';
+            document.getElementById('buyButton').innerText = `Buy for $${price}`;
         }
 
-        function openCustom() {
-            document.getElementById('customModal').style.display = 'flex';
-        }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function closeModal() {
-            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
-        }
-
-        function processCustom() {
-            const amount = document.getElementById('customInput').value;
-            if (amount < 30) {
-                alert("Minimum 30 coins required.");
-                return;
-            }
+        function handlePurchase() {
+            const coins = document.getElementById('customVal').value;
+            if (coins < 30) return alert("Minimum 30 coins required");
             
-            closeModal();
-            document.getElementById('processingModal').style.display = 'flex';
+            closeModal('customModal');
+            openModal('processModal');
 
-            // Simulate Processing
+            // Simulate Payment Processing
             setTimeout(() => {
-                document.getElementById('spinner').classList.add('hidden');
-                document.getElementById('processText').innerText = "Payment Details";
-                document.getElementById('details').classList.remove('hidden');
-                document.getElementById('finalAmt').innerText = amount;
-            }, 2000);
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('modalTitle').innerText = 'Payment Successful';
+                document.getElementById('payDetails').classList.remove('hidden');
+                document.getElementById('finalCoins').innerText = coins;
+            }, 2500);
         }
     </script>
 </body>
